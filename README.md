@@ -1,4 +1,4 @@
-🤖 AI-based Mock Interview Software
+🤖 AI-based Virtual Mock Interview Software
 🚧 Project Status: Currently Under Development 🚧
 📌 Overview
 AI-based Mock Interview Software is an intelligent and interactive platform designed to simulate real-life technical and behavioral interviews. Powered by artificial intelligence and natural language processing (NLP), this tool aims to help users—especially job seekers, students, and professionals—prepare for interviews by providing a realistic, responsive, and personalized mock interview experience.
