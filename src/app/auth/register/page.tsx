@@ -1,8 +1,10 @@
 "use client";
 
+import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SignupPage() {
     const router = useRouter();
@@ -15,11 +17,23 @@ export default function SignupPage() {
     });
 
     const [buttonDisabled, setButtonDisabled] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     const onSignup = async () => {
-        console.log("Signing up", user);
-        
+        try {
+            setLoading(true);
+            const response = await axios.post("/auth/register", user); 
+            console.log("Signup successfull", response.data);
+            router.push("/auth/login");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            console.log("Signup failed", error.message);
+            toast.error(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
+
 
     useEffect(() => {
         if(user.email.length > 0 && user.password.length > 0 && user.username.length > 0){
@@ -33,7 +47,7 @@ export default function SignupPage() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-700">
             <div className="backdrop-blur-md bg-white/10 border border-white/30 shadow-xl rounded-2xl p-10 w-full max-w-md">
-                <h1 className="text-3xl font-bold text-white mb-6 text-center">Sign Up</h1>
+                <h1 className="text-3xl font-bold text-white mb-6 text-center">{loading ? "Processing" : "Signup"}</h1>
 
                 <div className="flex flex-col gap-4 text-white">
                     <div className="flex flex-col">
