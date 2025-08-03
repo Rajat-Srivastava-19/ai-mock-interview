@@ -21,7 +21,7 @@ export default function LoginPage() {
             const response = await axios.post("/auth/login",user);
             console.log("Login success", response.data);
             toast.success("Login Success")
-            router.push("/auth/dashboard");
+            router.push("/dashboard");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.log("Login failed",error.message);
