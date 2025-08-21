@@ -1,67 +1,69 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ConfidenceChart from "@/components/ConfidenceChart";
+import RecentInterviews from "@/components/RecentInterviews";
+import StatCards from "@/components/StatCards";
 
 export default function DashboardHome() {
   const [stats, setStats] = useState({
-    totalInterviews: 0,
-    averageConfidence: 0,
-    nextInterview: "",
+    confidence: 0,
+    interviews: 0,
+    lastInterview: "-",
+    upcoming: "-",
   });
-  
 
   useEffect(() => {
     async function fetchStats() {
       try {
         const res = await fetch("/api/dashboard/stats");
         const data = await res.json();
-        setStats({
-          totalInterviews: data.totalInterviews,
-          averageConfidence: data.averageConfidence,
-          nextInterview: new Date(data.nextInterview).toLocaleString(),
-        });
+        setStats(data);
       } catch (err) {
-        console.error("Failed to fetch stats:", err);
+        console.error("Failed to load stats:", err);
       }
     }
-
     fetchStats();
   }, []);
-  
 
   return (
-    <><h1 className="text-3xl font-bold text-white">Welcome back 👋</h1><div className="h-screen dark:bg-gray-800 flex justify-center items-center">
-
-      <section className="grid gap-6 md:grid-cols-3 p-4 md:p-8 max-w-5xl mx-auto w-full ">
-        <div className="p-6 bg-white shadow rounded-2xl dark:bg-gray-900">
-          <dl className="space-y-2">
-            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Mock Interviews Taken</dt>
-
-            <dd className="text-5xl font-light md:text-6xl dark:text-white">{stats.totalInterviews}</dd>
+    <div className="bg-contain min-h-screen p-6 bg-gradient-to-br from-white to-gray-800 text-gray-900">
+      <h1 className="text-3xl font-bold mb-6">Welcome Back 👋</h1>
 
 
-          </dl>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+
+        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-6 shadow-lg">
+          <h2 className="text-lg font-semibold mb-2">Confidence Level</h2>
+          <p className="text-4xl font-bold text-emerald-400">{stats.confidence}%</p>
         </div>
 
-        <div className="p-6 bg-white shadow rounded-2xl dark:bg-gray-900">
-          <dl className="space-y-2">
-            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Average Confidence</dt>
-
-            <dd className="text-5xl font-light md:text-6xl dark:text-white">{stats.averageConfidence}</dd>
-
-
-          </dl>
+        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-6 shadow-lg">
+          <h2 className="text-lg font-semibold mb-2">Interviews Taken</h2>
+          <p className="text-4xl font-bold text-blue-400">{stats.interviews}</p>
         </div>
 
-        <div className="p-6 bg-white shadow rounded-2xl dark:bg-gray-900">
-          <dl className="space-y-2">
-            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Next Interview</dt>
-
-            <dd className="text-5xl font-light md:text-6xl dark:text-white">{stats.nextInterview || "Not scheduled"}</dd>
-          </dl>
+        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-6 shadow-lg">
+          <h2 className="text-lg font-semibold mb-2">Last Interview</h2>
+          <p className="text-xl font-medium">{stats.lastInterview}</p>
         </div>
-      </section>
 
-    </div></>
+        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-6 shadow-lg">
+          <h2 className="text-lg font-semibold mb-2">Upcoming Interview</h2>
+          <p className="text-xl font-medium">{stats.upcoming}</p>
+        </div>
+      </div>
+      <div className="space-y-6">
+        <h1 className="text-2xl font-bold text-black">Dashboard Overview</h1>
+        <StatCards />
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-lg">
+            <ConfidenceChart />
+          </div>
+          <RecentInterviews />
+        </div>
+      </div>
+    </div>
+    
   );
 }

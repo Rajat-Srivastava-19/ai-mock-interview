@@ -1,27 +1,19 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { connect } from "@/dbconfig/dbConfig";
-import Interview from "@/db/models/Interview"; 
+import Interview from "@/db/models/Interview";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(req: NextRequest) {
-  try {
-    await connect();
+export async function GET() {
+  await connect();
 
-    // Example: Get total interviews and average confidence
-    const total = await Interview.countDocuments();
-    const last = await Interview.findOne().sort({ date: -1 });
+  // mock user (replace with real auth later)
+  const userId = "12345";
 
-    const averageConfidence = await Interview.aggregate([
-      { $group: { _id: null, avg: { $avg: "$confidence" } } },
-    ]);
+  const interviews = await Interview.find({ userId }).sort({ date: -1 });
 
-    return NextResponse.json({
-      totalInterviews: total,
-      averageConfidence: Math.round(averageConfidence?.[0]?.avg || 0),
-      nextInterview: last?.scheduledAt || null,
-    });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  return NextResponse.json({
+    confidence: 72, // later calculate avg score
+    interviews: interviews.length,
+    lastInterview: interviews[0]?.date?.toDateString() || "No data",
+    upcoming: "Tomorrow at 5 PM", // replace with real scheduling
+  });
 }
