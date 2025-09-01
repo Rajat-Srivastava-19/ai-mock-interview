@@ -1,15 +1,19 @@
-import mongoose from "mongoose";
+import mongoose, {Schema,Document} from "mongoose";
 
-const interviewSchema = new mongoose.Schema({
-  userId: { type: String, required: true },
-  type: { type: String },
-  score: { type: Number },
-  confidence: { type: Number },
-  scheduledAt: { type: Date },
-  date: { type: Date, default: Date.now },
-});
+const interviewSchema:Schema = new mongoose.Schema(
+  {
+    type: { type: String, required: true },
+    status: { type: String, default: "pending" }, // pending | completed
+  },
+  { timestamps: true }
+);
+export interface IInterview extends Document {
+  type: string;
+  status: string;
+  createdAt: Date;
+}
 
 const Interview =
-  mongoose.models.Interview || mongoose.model("Interview", interviewSchema);
+  mongoose.models.Interview || mongoose.model<IInterview>("Interview", interviewSchema);
 
 export default Interview;

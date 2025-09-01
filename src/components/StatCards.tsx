@@ -14,12 +14,12 @@ export default function StatCards() {
       {stats.map((stat, i) => (
         <div
           key={i}
-          className="flex items-center gap-4 bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-lg"
+          className="flex items-center gap-4 bg-black backdrop-blur-md p-6 rounded-lg shadow-lg"
         >
-          <div className="p-3 bg-white/20 rounded-lg">{stat.icon}</div>
+          <div className="p-3 bg-black rounded-lg">{stat.icon}</div>
           <div>
-            <p className="text-black text-sm">{stat.title}</p>
-            <h3 className="text-xl font-bold text-gray-900">{stat.value}</h3>
+            <p className="text-white text-sm">{stat.title}</p>
+            <h3 className="text-xl font-bold text-white">{stat.value}</h3>
           </div>
         </div>
       ))}

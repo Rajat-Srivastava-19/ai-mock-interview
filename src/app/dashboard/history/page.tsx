@@ -10,7 +10,7 @@ export default function InterviewHistory() {
     <div>
       <h1 className="text-2xl font-bold text-white mb-4">Interview History</h1>
 
-      <div className="bg-white/10 rounded-lg overflow-hidden">
+      <div className="bg-white/20 rounded-lg overflow-hidden">
         <table className="w-full text-left text-white">
           <thead className="bg-white/20">
             <tr>

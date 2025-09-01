@@ -8,7 +8,7 @@ export default function RecentInterviews() {
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 shadow-lg">
+    <div className="bg-black backdrop-blur-md rounded-lg p-6 shadow-lg">
       <h2 className="text-xl font-bold text-white mb-4">Recent Interviews</h2>
       <table className="w-full text-left text-white">
         <thead>

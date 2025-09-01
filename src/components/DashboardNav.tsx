@@ -28,12 +28,12 @@ export default function DashboardNavbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/20 border-b border-white/20 shadow-md">
+    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-gray-400 border-b border-white/20 shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-white">AI Interview</h2>
+        <h2 className="text-xl font-bold text-gray-800">AI Interview</h2>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6 text-sm text-white">
+        <nav className="hidden md:flex items-center gap-6 text-sm text-gray-800">
           {navItems.map(({ href, label, icon, style }) => (
             <Link
               key={href}
