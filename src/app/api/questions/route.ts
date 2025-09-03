@@ -1,0 +1,151 @@
+// /app/api/questions/route.ts
+import { NextRequest, NextResponse } from "next/server";
+
+const techQuestions = [
+  "Explain closures in JavaScript.",
+  "What is the difference between var, let and const?",
+  "What are REST APIs?",
+  "What is the difference between var, let, and const in JavaScript?",
+  "Explain closures with an example.",
+  "What is hoisting in JavaScript?",
+  "How does the event loop work in Node.js?",
+  "What is the difference between == and === in JavaScript?",
+  "What are promises in JavaScript?",
+  "What is async/await and how does it work?",
+  "Difference between stack and heap memory.",
+  "What is a callback function?",
+  "What is the difference between an array and a linked list?",
+  "Explain the concept of recursion with an example.",
+  "Explain the concept of Big O notation.",
+  "What is a binary search tree?",
+  "What are data structures commonly used in real projects?",
+  "Explain how hashing works.",
+  "What is a RESTful API?",
+  "What are database indexes, and why are they important?",
+  "Difference between SQL and NoSQL.",
+  "Explain primary key vs foreign key.",
+  "What is normalization in databases?",
+  "What is ACID property in databases?",
+  "How does MongoDB differ from MySQL?",
+  "Explain REST API with example.",
+  "Difference between REST and GraphQL.",
+  "What is JWT and how does it work?",
+  "Difference between authentication and authorization.",
+  "What is CORS and why is it used?",
+  "What are middleware functions in Express.js?",
+  "Explain the MVC architecture.",
+  "Difference between monolithic and microservices architecture.",
+  "What is Docker and why do we use it?",
+  "Explain CI/CD pipelines.",
+  "What is Kubernetes used for?",
+  "Difference between TCP and UDP.",
+  "What is DNS and how does it work?",
+  "Explain load balancing.",
+  "What are design patterns? Give examples.",
+  "What is SOLID principle?",
+  "Explain polymorphism in OOP.",
+  "What is inheritance?",
+  "Explain encapsulation with example.",
+  "What are abstract classes vs interfaces?",
+  "What is garbage collection in programming?",
+  "Difference between compiled and interpreted languages.",
+  "Explain how React virtual DOM works.",
+  "What are React hooks?",
+  "Difference between useState and useReducer.",
+  "Explain useEffect with example.",
+  "Difference between server-side rendering and client-side rendering.",
+  "What is Next.js and why use it over React?",
+  "Explain static site generation (SSG).",
+  "What is machine learning?",
+  "Difference between supervised and unsupervised learning.",
+  "Explain overfitting and underfitting in ML."
+];
+const hrQuestions = [
+  "Tell me about yourself.",  
+  "Why should we hire you?",  
+  "What are your strengths?",  
+  "What are your weaknesses?",  
+  "Where do you see yourself in 5 years?",
+  "Why do you want to join this company?",  
+  "Why should we not hire you?",  
+  "Describe your ideal work environment.",  
+  "How do you handle stress?" , 
+  "Tell me about a time when you worked under pressure." , 
+  "Why are you leaving your current job?",  
+  "What motivates you to work?" , 
+  "What salary are you expecting?",  
+  "Are you willing to relocate?",  
+  "Are you willing to work overtime?",  
+  "What is your greatest professional achievement?",  
+  "How do you handle conflicts at work?",  
+  "Describe a time you disagreed with your manager.",  
+  "How do you manage deadlines?",  
+  "Who has inspired you the most?",  
+  "Do you prefer working independently or in teams?",  
+  "How do you handle criticism?",  
+  "What was your most challenging project?",  
+  "How do you prioritize your work?",  
+  "Describe a time you made a mistake.",  
+  "What is your leadership style?",  
+  "How do you stay motivated?",  
+  "What do you know about our company?",  
+  "How do you define success?",  
+  "How do you handle failure?",  
+  "Tell me about a time you resolved a conflict in a team.",  
+  "What is your dream job?",  
+  "How do you keep yourself updated in your field?",  
+  "Who is your role model?",  
+  "How do you maintain work-life balance?",  
+  "What are your hobbies?",  
+  "What is your preferred management style?",  
+  "Tell me about a time you exceeded expectations.",  
+  "Tell me about a time when you had to take initiative.",  
+  "How do you handle multiple tasks at once?",  
+  "What is the biggest challenge you’ve faced?",  
+  "Do you prefer startups or big corporations?",  
+  "How do you respond to failure?",  
+  "What do you enjoy most about your work?",  
+  "What do you enjoy least about your work?",  
+  "Describe a time when you managed a team successfully.",  
+  "What kind of company culture do you prefer?",  
+  "What motivates you more: money or passion?"
+];
+const behavioralQuestions = [
+  "Describe a time when you had to work in a team with tight deadlines.",
+  "Tell me about a time when you made a mistake and how you handled it.",
+  "Give an example of when you showed leadership.",
+  "Describe a situation where you resolved a conflict within a team.",
+  "Tell me about a time you had to adapt to a big change at work/school.",
+  "How do you handle failure.",
+  "Give an example of when you had to solve a difficult problem.",
+  "Tell me about a time you had to learn something quickly.",
+  "Describe a situation where you exceeded expectations.",
+  "Give an example of when you managed multiple tasks at once.",
+  "How do you stay motivated during long projects.",
+  "Tell me about a time when you had to persuade someone.",
+  "Give an example of how you deal with stress.",
+  "Describe a situation where you received feedback that was hard to hear.",
+  "Tell me about a time when you worked with someone very different from you.",
+  "Describe a time when you had to make a tough decision.",
+  "Give an example of when you took initiative.",
+  "Tell me about a time you had to handle a difficult customer or client.",
+  "Describe a situation where you had to go above and beyond.",
+  "Give an example of when you had to manage a project."
+];
+
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const type = searchParams.get("type");
+  const count = parseInt(searchParams.get("count") || "5");
+
+  let pool: string[] = [];
+  if (type === "tech") pool = techQuestions;
+  if (type === "hr") pool = hrQuestions;
+  if (type === "behavioral") pool = behavioralQuestions;
+
+
+  const shuffled = pool.sort(() => 0.5 - Math.random());
+  const selected = shuffled.slice(0, count);
+
+  return NextResponse.json({ questions: selected });
+}

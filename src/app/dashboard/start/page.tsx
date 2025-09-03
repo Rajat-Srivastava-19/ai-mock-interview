@@ -21,16 +21,22 @@ export default function StartInterview() {
     {label: "20:00 minutes", value:"20minutes"},
   ];
 
-  const openInterviewWindow = () => {
+  const openInterviewWindow = async () => {
+    const res = await fetch(`/api/questions?type=${type}&count=5`);
+    const data = await res.json();
+    const questions = data.questions;
+
+    localStorage.setItem("questions-temp", JSON.stringify(questions));
+
     const interviewUrl = `/interview?type=${type}&time=${time}`;
     window.open(interviewUrl, "_blank", "width=800,height=600");
-  }
+  };
+
 
   return (
     <div className="space-y-6">
       <h1 className="text-2xl text-center align-middle font-bold text-white">Start Interview</h1>
 
-      {/* Dropdown */}
       <div className="relative inline-block text-left">
         <h2 className="text-white mb-2">Select Interview Type:</h2>
         <button
