@@ -28,12 +28,10 @@ export default function DashboardNavbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-gray-400 border-b border-white/20 shadow-md">
+    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black border-b border-white/20 shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-800">AI Interview</h2>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6 text-sm text-gray-800">
+        <h2 className="text-xl font-bold text-white">AI Interview</h2>
+        <nav className="hidden md:flex items-center gap-6 text-sm text-white">
           {navItems.map(({ href, label, icon, style }) => (
             <Link
               key={href}
@@ -50,7 +48,6 @@ export default function DashboardNavbar() {
           ))}
         </nav>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-white text-xl focus:outline-none"
@@ -59,7 +56,6 @@ export default function DashboardNavbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden px-6 pb-4 bg-white/10 backdrop-blur-md border-t border-white/20">
           <nav className="flex flex-col gap-3 mt-4 text-white text-sm">
