@@ -1,16 +1,14 @@
 "use client";
 
-import DashboardNavbar from "@/components/DashboardNav";
+import Sidebar from "@/components/Sidebar";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <DashboardNavbar />
-      <main className="pt-20 px-6">{children}</main>
-    </>
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <main className="flex-1 w-full">
+        {children}
+      </main>
+    </div>
   );
 }

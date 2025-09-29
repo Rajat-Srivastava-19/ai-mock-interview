@@ -3,7 +3,7 @@ import mongoose, {Schema,Document} from "mongoose";
 const interviewSchema:Schema = new mongoose.Schema(
   {
     type: { type: String, required: true },
-    status: { type: String, default: "pending" }, // pending | completed
+    status: { type: String, default: "pending" },
   },
   { timestamps: true }
 );

@@ -11,12 +11,10 @@ export default function InterviewPage() {
   const [mode, setMode] = useState<"text" | "video">("text");
   const [interviewActive, setInterviewActive] = useState(true);
 
-  // Fix: Use state for type and time, set them in useEffect
   const [type, setType] = useState("tech");
   const [time, setTime] = useState("5minutes");
   const [seconds, setSeconds] = useState(0);
 
-  // Only access window in useEffect
   useEffect(() => {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams(window.location.search);
