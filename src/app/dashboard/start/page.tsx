@@ -27,46 +27,33 @@ export default function StartInterview() {
     { label: "20:00 minutes", value: "20minutes" },
   ];
 
-  const openInterviewWindow = async () => {
-    const res = await fetch(`/api/questions?type=${type}&count=5`);
-    const data = await res.json();
-    const questions = data.questions;
-
-    localStorage.setItem("questions-temp", JSON.stringify(questions));
-
-    const interviewUrl = `/interview?type=${type}&time=${time}`;
-    window.open(interviewUrl, "_blank", "width=800,height=600");
+  const openInterviewWindow = () => {
+    const interviewUrl = `/interview?type=${type}&time=${time}&mode=${videoInterview}`;
+    window.open(interviewUrl, "_blank", "width=900,height=700,resizable=yes");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br bg-black px-6 py-12">
-      <div className="w-full max-w-lg bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl rounded-2xl p-8 space-y-8">
-        
-        <h1 className="text-3xl font-bold text-center text-white tracking-wide">
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-800 to-indigo-700 px-4 sm:px-6 md:px-10 py-10">
+      <div className="w-full max-w-md sm:max-w-lg bg-white rounded-3xl shadow-2xl border-t-4 border-indigo-500 p-6 sm:p-8 space-y-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center text-indigo-800 tracking-wide">
           Start Interview
         </h1>
 
+        {/* Interview Type */}
         <div className="relative">
-          <h2 className="text-white mb-2 font-semibold">Select Interview Type:</h2>
+          <h2 className="text-sm font-semibold text-gray-700 mb-2">Interview Type</h2>
           <button
             onClick={() => setDropdownOpen((prev) => !prev)}
-            type="button"
-            className="w-full flex justify-between items-center text-white bg-blue-600/80 hover:bg-blue-700 transition px-5 py-3 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full flex justify-between items-center bg-indigo-100 hover:bg-indigo-200 text-indigo-800 px-5 py-3 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-indigo-400"
           >
             {interviewOptions.find((opt) => opt.value === type)?.label || "Select Type"}
-            <svg
-              className="w-3 h-3 ml-2"
-              aria-hidden="true"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 10 6"
-            >
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 10 6">
               <path d="M1 1l4 4 4-4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
 
           {dropdownOpen && (
-            <div className="absolute mt-2 w-full bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
+            <div className="absolute mt-2 w-full bg-white border border-gray-300 rounded-xl shadow-xl z-50">
               {interviewOptions.map((option) => (
                 <button
                   key={option.value}
@@ -76,8 +63,8 @@ export default function StartInterview() {
                   }}
                   className={`w-full flex items-center gap-3 px-5 py-3 text-sm transition ${
                     type === option.value
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-300 hover:bg-gray-700"
+                      ? "bg-indigo-100 text-indigo-800 font-semibold"
+                      : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   {option.icon}
@@ -88,27 +75,21 @@ export default function StartInterview() {
           )}
         </div>
 
+        {/* Interview Duration */}
         <div className="relative">
-          <h2 className="text-white mb-2 font-semibold">Select Interview Timing:</h2>
+          <h2 className="text-sm font-semibold text-gray-700 mb-2">Interview Duration</h2>
           <button
             onClick={() => setTimingDropdown((prev) => !prev)}
-            type="button"
-            className="w-full flex justify-between items-center text-white bg-blue-600/80 hover:bg-blue-700 transition px-5 py-3 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full flex justify-between items-center bg-indigo-100 hover:bg-indigo-200 text-indigo-800 px-5 py-3 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-indigo-400"
           >
             {timingOptions.find((opt) => opt.value === time)?.label || "Select Time"}
-            <svg
-              className="w-3 h-3 ml-2"
-              aria-hidden="true"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 10 6"
-            >
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 10 6">
               <path d="M1 1l4 4 4-4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
 
           {timingDropdown && (
-            <div className="absolute mt-2 w-full bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
+            <div className="absolute mt-2 w-full bg-white border border-gray-300 rounded-xl shadow-xl z-50">
               {timingOptions.map((option) => (
                 <button
                   key={option.value}
@@ -118,8 +99,8 @@ export default function StartInterview() {
                   }}
                   className={`w-full px-5 py-3 text-sm transition ${
                     time === option.value
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-300 hover:bg-gray-700"
+                      ? "bg-indigo-100 text-indigo-800 font-semibold"
+                      : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   {option.label}
@@ -129,17 +110,18 @@ export default function StartInterview() {
           )}
         </div>
 
-        <div className="text-white">
-          <h2 className="mb-2 font-semibold">Interview Mode:</h2>
-          <div className="flex gap-4">
+        {/* Interview Mode */}
+        <div>
+          <h2 className="text-sm font-semibold text-gray-700 mb-2">Interview Mode</h2>
+          <div className="flex flex-wrap gap-4">
             {videoOptions.map((option) => (
               <button
                 key={option.value}
                 onClick={() => setVideoInterview(option.value)}
-                className={`px-5 py-2 rounded-lg font-medium transition ${
+                className={`flex-1 px-5 py-2 rounded-xl font-medium transition ${
                   videoInterview === option.value
-                    ? "bg-blue-600 text-white shadow-md"
-                    : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    ? "bg-indigo-600 text-white shadow-md"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 {option.label}
@@ -148,16 +130,17 @@ export default function StartInterview() {
           </div>
         </div>
 
+        {/* Start Button */}
         <div className="flex justify-center">
           <button
             type="button"
             onClick={openInterviewWindow}
-            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-3 rounded-xl shadow-lg transform hover:scale-105 transition"
+            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 rounded-2xl shadow-xl transform hover:scale-105 transition"
           >
-            🚀 Start {type.toUpperCase()} {time.toLowerCase()} Interview
+            🚀 Start {type.charAt(0).toUpperCase() + type.slice(1)} Interview ({time.replace("minutes", " min")})
           </button>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

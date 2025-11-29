@@ -1,4 +1,4 @@
-// /app/api/questions/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
 
 const techQuestions = [

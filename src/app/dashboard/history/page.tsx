@@ -1,4 +1,5 @@
-// app/dashboard/history/page.tsx
+
+
 export default function InterviewHistory() {
   const interviews = [
     { date: "Aug 1", type: "Tech", score: 78 },
@@ -7,29 +8,29 @@ export default function InterviewHistory() {
   ];
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-white mb-4">Interview History</h1>
+    <main className="ml-72 mr-6 mt-6 mb-6">
+      <h1 className="text-3xl font-bold text-violet-800 mb-6">Interview History</h1>
 
-      <div className="bg-white/20 rounded-lg overflow-hidden">
-        <table className="w-full text-left text-white">
-          <thead className="bg-white/20">
+      <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition border-t-4 border-violet-500 overflow-hidden">
+        <table className="w-full text-left">
+          <thead className="bg-violet-50 text-violet-700">
             <tr>
-              <th className="p-3">Date</th>
-              <th className="p-3">Type</th>
-              <th className="p-3">Score</th>
+              <th className="p-4 text-sm font-semibold">Date</th>
+              <th className="p-4 text-sm font-semibold">Type</th>
+              <th className="p-4 text-sm font-semibold">Score</th>
             </tr>
           </thead>
           <tbody>
             {interviews.map((item, i) => (
-              <tr key={i} className="hover:bg-white/10 transition">
-                <td className="p-3">{item.date}</td>
-                <td className="p-3">{item.type}</td>
-                <td className="p-3">{item.score}%</td>
+              <tr key={i} className="hover:bg-violet-50 transition">
+                <td className="p-4 text-gray-700">{item.date}</td>
+                <td className="p-4 text-gray-700">{item.type}</td>
+                <td className="p-4 text-violet-700 font-semibold">{item.score}%</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   );
 }
